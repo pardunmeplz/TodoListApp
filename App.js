@@ -11,8 +11,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import {StatusBar,} from 'react-native';
 import Edit from './src/edit/Screen';
-import Home from './src/home/Screen';
-import Login from './src/Login/Screen';
+import { Wrapper } from './src/Wrapper';
 import Profile from './src/profile/Screen';
 import Register from './src/register/Screen';
 
@@ -23,11 +22,10 @@ function App(){
   StatusBar.setHidden(true, 'slide');
   return(
   <NavigationContainer>
-    <Stack.Navigator initialRouteName='login'>
-      <Stack.Screen name ="login" component={Login} options={{headerShown:false}}/>
+    <Stack.Navigator initialRouteName='home'>
+      <Stack.Screen name ="home" component={Wrapper} options={{headerShown:false}}/>
       <Stack.Screen name ="register" component={Register} options={{headerShown:false}}/>
       <Stack.Screen name ="profile" component={Profile} options={{headerShown:false}}/>
-      <Stack.Screen name ="home" component={Home} options={{headerShown:false}}/>
       <Stack.Screen name ="edit" component={Edit} options={{headerShown:false}}/>
     </Stack.Navigator>
   </NavigationContainer>
