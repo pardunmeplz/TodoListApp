@@ -18,26 +18,26 @@ import React from 'react';
    View,
  } from 'react-native';
 import ProfileBar from './ProfileBar';
+import TodoView from './TaskList';
  
  function Home()
  { 
 
-   return <View flex = {1}>
+   return <View flex = {1}      backgroundColor={'black'}>
      <ProfileBar flex = {2}/>
-     <View style = {styles.taskView}></View>
-     <View style = {styles.bottomView}></View>
+     <View style = {styles.taskView}>
+     <TodoView/>
+     </View>
+    
    </View>
  };
  
  
  const styles = StyleSheet.create({
    taskView:{
-     flex:7.4
-   },
-   bottomView:{
-     flex:0.6,
-     backgroundColor:'grey'
-   },
+     flex:7.4,
+
+   }
  })
  
  export default Home;

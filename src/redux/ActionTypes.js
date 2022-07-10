@@ -1,0 +1,7 @@
+export const AddTask = "AddTask"
+export const SelectTask = "SelectTask"
+export const ToggleTask = "ToggleTask"
+export const ChangeTask = "ChangeTask"
+export const DeleteTask = "DeleteTask"
+export const SaveList = "SaveList"
+export const LoadList = "LoadList"
