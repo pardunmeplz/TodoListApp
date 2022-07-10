@@ -3,7 +3,7 @@ import Login from './Login/Screen'
 
 import React from 'react'
 
-let loggedIn = false;
+let loggedIn:boolean = false;
 
 export function Wrapper()
 {
