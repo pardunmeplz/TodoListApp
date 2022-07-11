@@ -22,6 +22,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../redux/Slices/UserSlice';
 import { RootStackParams } from '../../App';
+import * as auth from '../firebase/auth'
 
 
 const logValidation = yup.object().shape({
@@ -53,7 +54,8 @@ const logValidation = yup.object().shape({
                     
      onSubmit={values => {
          console.log(values)
-         dispatch(logIn({}))
+         auth.signIn(values.email,values.password)
+         dispatch(logIn())
          }}>
      {
         ({ handleChange, handleBlur, handleSubmit, values , errors}) =>

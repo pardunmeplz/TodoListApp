@@ -37,10 +37,8 @@ import TodoView from './TaskList';
      <FloatButton onPress = {()=>{dispatch(addTask({}))}}/>
      <View>
      </View>
-     <Pressable onPress ={()=> dispatch(clearTasks({}))}>
-        <View  style={styles.button}>
+     <Pressable style={styles.button} onPress ={()=> dispatch(clearTasks({}))}>
             <Text style={{fontSize:18}}>Clear completed</Text>
-        </View>
      </Pressable>
    </View>
    )

@@ -14,8 +14,9 @@ import Edit from './src/edit/Screen';
 import { Wrapper } from './src/Wrapper';
 import Profile from './src/profile/Screen';
 import Register from './src/register/Screen';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import store from './src/redux/Store';
+import { logIn, logOut } from './src/redux/Slices/UserSlice';
 
 export type RootStackParams = {
   home:undefined;
@@ -29,6 +30,7 @@ const Stack = createNativeStackNavigator<RootStackParams>();
 
 
 function App(): JSX.Element{
+
   StatusBar.setHidden(true, 'slide');
   return(
   <Provider store = {store}>

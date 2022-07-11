@@ -18,6 +18,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import ProfileBar from '../home/ProfileBar';
 import { logOut } from '../redux/Slices/UserSlice';
+import * as auth from '../firebase/auth'
  
  function Profile(){
  const dispatch = useDispatch();
@@ -26,8 +27,10 @@ import { logOut } from '../redux/Slices/UserSlice';
        <ProfileBar flex = {2}/>
        <View style = {styles.profileView}>
           <Pressable onPress={()=>{
-            dispatch(logOut({}));
-            navigation.goBack()
+            auth.signOut()
+                .then( ()=>{
+                      dispatch(logOut());
+                      navigation.goBack()});
             }}>
             <Text style={styles.logOut}>Log out</Text>
           </Pressable>

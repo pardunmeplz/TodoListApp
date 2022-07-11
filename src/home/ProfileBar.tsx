@@ -8,17 +8,20 @@ import {
   View,
   Pressable
 } from 'react-native';
+import {useSelector } from 'react-redux';
 import { RootStackParams } from '../../App';
+import { RootState } from '../redux/Store';
 
 function ProfileBar({flex}:{flex:number}){
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
+    const name = useSelector((state:RootState)=>state.user.name)
     return <View style = {{...styles.view, flex}}>
       <Pressable onPress={_=>{navigation.navigate('profile')}}>
       <View style = {styles.profile}>
         <Text style={{fontSize:20}}>Pd</Text>
         </View>
       </Pressable>
-      <Text style={styles.name}>Name </Text>
+      <Text style={styles.name}>{name}</Text>
       </View>
   }
 
