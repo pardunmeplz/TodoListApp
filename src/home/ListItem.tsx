@@ -1,22 +1,19 @@
 import React from "react"
 import {View, Text, StyleSheet, Pressable} from "react-native"
-import * as Actions from "../redux/Actions"
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { toggleTask } from "../redux/Slices/TodoSlice";
+import type { taskState } from "../redux/Slices/TodoSlice";
 
-function Item({title, status, index})
+function Item({title, status, index}:{title:String,status:Boolean,index:Number})
 {
     const dispatch = useDispatch();
     const nav = useNavigation();
     return (
     
-
         <Pressable onPress={()=>dispatch(toggleTask(index))}
                     onLongPress={()=>{
-                        dispatch(Actions.select(index))
-                        nav.navigate("EditTask")
-                        }}>
+                        nav.navigate({key:'edit'})}}>
             <View style={styles.background}>
         <Text
             style={status?styles.complete
@@ -51,9 +48,9 @@ const styles = StyleSheet.create({
 
 
 })
- function renderItem({item})
+ function renderItem({item}:{item:taskState})
  {
-    return <Item title={item.title} status={item.status} index= {item.index}/>
+    return <Item title={item.title} status={item.status} index= {item.index!}/>
  }
 
  export default renderItem;

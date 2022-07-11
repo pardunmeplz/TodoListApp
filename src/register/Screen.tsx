@@ -18,6 +18,7 @@
  } from 'react-native'
 import { Formik} from 'formik'
 import * as yup from 'yup'
+import { useNavigation } from '@react-navigation/native';
 
 const regValidation = yup.object().shape({
     firstName: yup.string()
@@ -47,8 +48,9 @@ const regValidation = yup.object().shape({
                       )
 })
 
- function Register(navigation){
-   return <ScrollView backgroundColor={"black"}>
+ function Register(){
+    const navigation = useNavigation()
+   return <ScrollView style={{backgroundColor:"black"}}>
        <View>
        <Text style = {styles.title}>Register new user</Text>
        <Formik
@@ -62,7 +64,7 @@ const regValidation = yup.object().shape({
                     }}
      onSubmit={values => {
          console.log(values)
-         navigation.navigation.navigate('login')}}>
+         navigation.navigate({key:'login'})}}>
      {
         ({ handleChange, handleBlur, handleSubmit, values, errors }) =>
         (
@@ -87,7 +89,7 @@ const regValidation = yup.object().shape({
                     style = {styles.input}
                     onChangeText={handleChange('age')}
                     onBlur={handleBlur('age')}
-                    value={values.age}
+                    value={String(values.age)}
                     keyboardType={'numeric'}/>
                 <Text style={styles.textBlack}>Email <Text style={styles.textError}>{errors.email}</Text></Text>
                 <TextInput

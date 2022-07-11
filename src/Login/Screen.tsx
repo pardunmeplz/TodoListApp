@@ -17,6 +17,8 @@
 import { Formik} from 'formik';
 import * as yup from 'yup'
 import Snackbar from 'react-native-snackbar';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 
 
 const logValidation = yup.object().shape({
@@ -34,8 +36,9 @@ const logValidation = yup.object().shape({
 })
 
 
- function Login(navigation){
-   return <View flex ={1} justifyContent={'center'} backgroundColor={'black'}>
+ function Login(){
+    const navigation = useNavigation()
+   return <View style={{flex :1, justifyContent:'center', backgroundColor:'black'}} >
        <Text style = {styles.title}>Log In</Text>
        <Formik
        validationSchema={logValidation}
@@ -46,7 +49,7 @@ const logValidation = yup.object().shape({
                     
      onSubmit={values => {
          console.log(values)
-         navigation.navigation.navigate('home')
+         navigation.navigate({key:'home'})
          }}>
      {
         ({ handleChange, handleBlur, handleSubmit, values , errors}) =>
@@ -76,7 +79,7 @@ const logValidation = yup.object().shape({
             </View>
      )}
    </Formik>
-   <Pressable onPress={_=>navigation.navigation.navigate('register')}>
+   <Pressable onPress={_=>navigation.navigate({key:'register'})}>
         <Text style = {styles.newAccount}>New Account? Register Here</Text>
    </Pressable>
     </View>

@@ -17,7 +17,6 @@ import Register from './src/register/Screen';
 import { Provider } from 'react-redux';
 import store from './src/redux/Store';
 
-
 const Stack = createNativeStackNavigator();
 
 function App(){

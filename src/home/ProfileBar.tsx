@@ -5,13 +5,13 @@ import {
   StyleSheet,
   Text,
   View,
+  Pressable
 } from 'react-native';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
-function ProfileBar(props){
+function ProfileBar({flex}:{flex:number}){
     const navigation = useNavigation();
-    return <View style = {styles.view} flex = {props.flex}>
-      <Pressable onPress={_=>{navigation.navigate('profile')}}>
+    return <View style = {{...styles.view, flex}}>
+      <Pressable onPress={_=>{navigation.navigate({key:'profile'})}}>
       <View style = {styles.profile}>
         <Text style={{fontSize:20}}>Pd</Text>
         </View>
@@ -22,7 +22,7 @@ function ProfileBar(props){
 
   const styles = StyleSheet.create({
     view:{
-      backgroundColor:"white",
+      backgroundColor:"grey",
       borderBottomLeftRadius: 70,
       borderBottomRightRadius: 70,
       padding: 10,
@@ -33,7 +33,7 @@ function ProfileBar(props){
       width:100,
       height:100,
       borderRadius:500,
-      backgroundColor:'grey',
+      backgroundColor:'black',
       margin:25,
       marginLeft:50,
       alignItems:'center',

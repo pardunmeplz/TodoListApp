@@ -9,17 +9,13 @@
  import React from 'react';
 
  import {
-   SafeAreaView,
-   ScrollView,
    StyleSheet,
-   Text,
-   useColorScheme,
    View,
  } from 'react-native';
 import ProfileBar from '../home/ProfileBar';
  
  function Profile(){
-   return <View flex = {1}>
+   return <View style={{flex:1}}>
        <ProfileBar flex = {2}/>
        <View style = {styles.taskView}></View>
    </View>

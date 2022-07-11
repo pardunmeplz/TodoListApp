@@ -1,16 +1,17 @@
-import React from "react"
+import React, { ReactNode } from "react"
 import {StyleSheet, FlatList, View} from "react-native"
 import { useSelector } from "react-redux";
 import renderItem from "./ListItem";
+import type { RootState } from "../redux/Store";
 
 
-function TodoView(props){
+function TodoView({children}:{children?: ReactNode}){
 
-    const Data =  useSelector(state => state.todo.map((value, index)=>{return {...value, index}}))
+    const Data =  useSelector((state:RootState) => state.todo.map((value, index)=>{return {...value, index}}))
 
     return(
     <View style ={ styles.background}>
-        {props.children}
+        {children}
         <FlatList
         data={Data}
         renderItem={renderItem}
