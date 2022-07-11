@@ -74,8 +74,8 @@ const regValidation = yup.object().shape({
                     }}
      onSubmit={values => {
          console.log(values)
-         newUser(values.email, values.password)
-         navigation.goBack()}}>
+         newUser(values.email, values.password).then(()=>{navigation.goBack()})
+         }}>
      {
         ({ handleChange, handleBlur, handleSubmit, values, errors }) =>
         (

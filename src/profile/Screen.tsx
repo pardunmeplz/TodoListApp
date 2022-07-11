@@ -17,8 +17,8 @@ import React from 'react';
  } from 'react-native';
 import { useDispatch } from 'react-redux';
 import ProfileBar from '../home/ProfileBar';
-import { logOut } from '../redux/Slices/UserSlice';
 import * as auth from '../firebase/auth'
+import { logOut } from '../redux/Slices/UserSlice';
  
  function Profile(){
  const dispatch = useDispatch();
@@ -29,8 +29,13 @@ import * as auth from '../firebase/auth'
           <Pressable onPress={()=>{
             auth.signOut()
                 .then( ()=>{
-                      dispatch(logOut());
-                      navigation.goBack()});
+                  if(!auth.loggedIn())
+                  {
+                      dispatch(logOut({}))
+                  }
+                      navigation.goBack()
+
+                    });
             }}>
             <Text style={styles.logOut}>Log out</Text>
           </Pressable>

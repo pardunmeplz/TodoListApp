@@ -1,34 +1,27 @@
 import auth from '@react-native-firebase/auth';
+import Snackbar from 'react-native-snackbar';
 
-export function newUser(email, password){
+export async function newUser(email, password){
 auth()
   .createUserWithEmailAndPassword(email, password)
   .then(() => {
+    Snackbar.show({text:'User created successfully !', duration:Snackbar.LENGTH_LONG})
     console.log('User account created & signed in!');
   })
   .catch(error => {
-    if (error.code === 'auth/email-already-in-use') {
-      console.log('That email address is already in use!');
-    }
 
-    if (error.code === 'auth/invalid-email') {
-      console.log('That email address is invalid!');
-    }
-    console.error(error);
+    Snackbar.show({text: error.message, duration:Snackbar.LENGTH_LONG})
   });
 }
 
-export function signIn(email, password){
+export async function signIn(email, password){
   auth()
     .signInWithEmailAndPassword(email, password)
     .then(() => {
-      console.log('Signed In!!');
+      Snackbar.show({text:'Signed in!', duration:Snackbar.LENGTH_LONG})
     })
     .catch(error => {
-      if (error.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
-      }
-      console.error(error);
+      Snackbar.show({text:error.message, duration:Snackbar.LENGTH_LONG})
     });
   }
   
@@ -36,6 +29,12 @@ export function signIn(email, password){
 export async function signOut(){
 auth()
   .signOut()
-  .then(() => console.log('User signed out!'));
+  .then(() => 
+  Snackbar.show({text:'User logged out', duration:Snackbar.LENGTH_LONG}));
+}
+
+export function loggedIn()
+{
+  return auth().currentUser != null
 }
 

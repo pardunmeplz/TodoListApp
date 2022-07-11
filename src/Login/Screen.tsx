@@ -20,7 +20,7 @@ import Snackbar from 'react-native-snackbar';
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { logIn } from '../redux/Slices/UserSlice';
+import { getName, logIn } from '../redux/Slices/UserSlice';
 import { RootStackParams } from '../../App';
 import * as auth from '../firebase/auth'
 
@@ -54,8 +54,17 @@ const logValidation = yup.object().shape({
                     
      onSubmit={values => {
          console.log(values)
-         auth.signIn(values.email,values.password)
-         dispatch(logIn())
+         auth.signIn(values.email,values.password).then(
+            ()=>{
+                
+                dispatch(getName('myname'))
+                if(auth.loggedIn())
+                {
+                    dispatch(logIn({}))
+                }
+
+            }
+         )
          }}>
      {
         ({ handleChange, handleBlur, handleSubmit, values , errors}) =>
@@ -76,8 +85,7 @@ const logValidation = yup.object().shape({
                 
                 <Pressable style={styles.button} onPress={
                     _=>{if(errors.email || errors.password){
-                            Snackbar.show({text:errors.email+" , "+errors.password, duration:Snackbar.LENGTH_LONG}
-                            )
+                            Snackbar.show({text:errors.email+" , "+errors.password, duration:Snackbar.LENGTH_LONG})
                         }
                     handleSubmit()}}>
                     <Text style = {styles.textButton}>Submit</Text>

@@ -5,29 +5,29 @@ export interface userState{
     name?:String
 }
 export interface userPayload{
-    type:String,
+    type?:String,
     name?:String
 }
 
-const initialState: userState={loggedin:true, name:'NONE'}
+const initialState: userState={loggedin:false, name:'NONE'}
 
 export const userSlice = createSlice({
 
     name:'user',
     initialState,
     reducers:{
-        logIn:(state, payload:userPayload)=>{
+        logIn:(state, action)=>{
             state.loggedin=true
         },
-        logOut:(state, payload:userPayload)=>{
+        logOut:(state, action)=>{
             state.loggedin=false
         },
-        getName:(state, payload:userPayload)=>{
-            state.name=payload.name
+        getName:(state, action)=>{
+            state.name= action.payload
         }
 
     }
 })
 
-export const {logIn, logOut} = userSlice.actions
+export const {logIn, logOut, getName} = userSlice.actions
 export default userSlice.reducer
