@@ -2,14 +2,17 @@ import React from "react"
 import {View, Text, StyleSheet, Pressable} from "react-native"
 import * as Actions from "../redux/Actions"
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { toggleTask } from "../redux/Slices/TodoSlice";
 
 function Item({title, status, index})
 {
+    const dispatch = useDispatch();
     const nav = useNavigation();
     return (
     
 
-        <Pressable onPress={()=>dispatch(Actions.toggle(index))}
+        <Pressable onPress={()=>dispatch(toggleTask(index))}
                     onLongPress={()=>{
                         dispatch(Actions.select(index))
                         nav.navigate("EditTask")

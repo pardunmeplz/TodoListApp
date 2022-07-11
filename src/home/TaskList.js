@@ -1,12 +1,12 @@
 import React from "react"
 import {StyleSheet, FlatList, View} from "react-native"
+import { useSelector } from "react-redux";
 import renderItem from "./ListItem";
 
 
 function TodoView(props){
 
-    const Data =         [{title:"Task1", description:"This is an example task", status:false},
-    {title:"Task2", description:"You can describe the task here", status:true}]
+    const Data =  useSelector(state => state.todo.map((value, index)=>{return {...value, index}}))
 
     return(
     <View style ={ styles.background}>

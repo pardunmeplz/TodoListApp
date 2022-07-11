@@ -19,7 +19,7 @@
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
  
  function Edit(){
-   return <View flex = {1}>
+   return <View style = {{flex : 1}}>
        <Text style = {styles.title}>Create new task</Text>
        <Text style = {styles.text}>Task name</Text>
        <View style = {styles.details}>
