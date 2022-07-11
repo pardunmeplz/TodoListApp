@@ -19,6 +19,8 @@
 import { Formik} from 'formik'
 import * as yup from 'yup'
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParams } from '../../App';
 
 const regValidation = yup.object().shape({
     firstName: yup.string()
@@ -49,7 +51,7 @@ const regValidation = yup.object().shape({
 })
 
  function Register(){
-    const navigation = useNavigation()
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>()
    return <ScrollView style={{backgroundColor:"black"}}>
        <View>
        <Text style = {styles.title}>Register new user</Text>
@@ -64,7 +66,7 @@ const regValidation = yup.object().shape({
                     }}
      onSubmit={values => {
          console.log(values)
-         navigation.navigate({key:'login'})}}>
+         navigation.goBack()}}>
      {
         ({ handleChange, handleBlur, handleSubmit, values, errors }) =>
         (

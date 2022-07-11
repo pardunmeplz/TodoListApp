@@ -4,7 +4,7 @@ export interface userState{
     loggedin: Boolean
 }
 
-const initialState: userState={loggedin:false}
+const initialState: userState={loggedin:true}
 
 export const userSlice = createSlice({
 

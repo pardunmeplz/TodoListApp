@@ -34,11 +34,13 @@ import TodoView from './TaskList';
      <View style = {styles.taskView}>
      <TodoView/>
      </View>
-     <FloatButton onPress = { ()=> dispatch(addTask)}/>
+     <FloatButton onPress = {()=>{dispatch(addTask({}))}}/>
      <View>
      </View>
-     <Pressable style={styles.button} onPress ={()=> dispatch(clearTasks)}>
-      <Text style={{fontSize:18}}>Clear completed</Text>
+     <Pressable onPress ={()=> dispatch(clearTasks({}))}>
+        <View  style={styles.button}>
+            <Text style={{fontSize:18}}>Clear completed</Text>
+        </View>
      </Pressable>
    </View>
    )
@@ -51,10 +53,11 @@ import TodoView from './TaskList';
    },
    button:{
     backgroundColor:'grey',
-    width:150,
+    width:200,
     alignItems:'center',
     borderRadius:20,
-    margin:20
+    margin:20,
+    padding:5
    }
 
  })

@@ -17,8 +17,11 @@
 import { Formik} from 'formik';
 import * as yup from 'yup'
 import Snackbar from 'react-native-snackbar';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { logIn } from '../redux/Slices/UserSlice';
+import { RootStackParams } from '../../App';
 
 
 const logValidation = yup.object().shape({
@@ -37,7 +40,8 @@ const logValidation = yup.object().shape({
 
 
  function Login(){
-    const navigation = useNavigation()
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>()
+    const dispatch = useDispatch()
    return <View style={{flex :1, justifyContent:'center', backgroundColor:'black'}} >
        <Text style = {styles.title}>Log In</Text>
        <Formik
@@ -49,7 +53,7 @@ const logValidation = yup.object().shape({
                     
      onSubmit={values => {
          console.log(values)
-         navigation.navigate({key:'home'})
+         dispatch(logIn({}))
          }}>
      {
         ({ handleChange, handleBlur, handleSubmit, values , errors}) =>
@@ -79,7 +83,7 @@ const logValidation = yup.object().shape({
             </View>
      )}
    </Formik>
-   <Pressable onPress={_=>navigation.navigate({key:'register'})}>
+   <Pressable onPress={_=>navigation.navigate('register')}>
         <Text style = {styles.newAccount}>New Account? Register Here</Text>
    </Pressable>
     </View>

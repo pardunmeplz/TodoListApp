@@ -6,30 +6,53 @@
  * @flow strict-local
  */
 
- import React from 'react';
+ import { useNavigation } from '@react-navigation/native';
+import React from 'react';
 
  import {
+   Pressable,
    StyleSheet,
    View,
+   Text
  } from 'react-native';
+import { useDispatch } from 'react-redux';
 import ProfileBar from '../home/ProfileBar';
+import { logOut } from '../redux/Slices/UserSlice';
  
  function Profile(){
-   return <View style={{flex:1}}>
+ const dispatch = useDispatch();
+ const navigation = useNavigation();
+ return <View style={{flex:1, backgroundColor:'black'}}>
        <ProfileBar flex = {2}/>
-       <View style = {styles.taskView}></View>
+       <View style = {styles.profileView}>
+          <Pressable onPress={()=>{
+            dispatch(logOut({}));
+            navigation.goBack()
+            }}>
+            <Text style={styles.logOut}>Log out</Text>
+          </Pressable>
+
+       </View>
    </View>
  };
  
  
  const styles = StyleSheet.create({
-   taskView:{
+   profileView:{
      flex:7.4,
      backgroundColor:'grey',
      borderTopLeftRadius:70,
      borderTopRightRadius:70,
-     marginTop:50
+     marginTop:50,
+     alignItems:'center',
+     justifyContent:'flex-end',
+     padding:50
+   },
+   logOut:{
+      color:'blue',
+      fontSize:20
    }
+
  })
  
  export default Profile;

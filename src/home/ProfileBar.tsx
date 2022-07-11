@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import React from 'react';
 
 import {
@@ -7,11 +8,12 @@ import {
   View,
   Pressable
 } from 'react-native';
+import { RootStackParams } from '../../App';
 
 function ProfileBar({flex}:{flex:number}){
-    const navigation = useNavigation();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
     return <View style = {{...styles.view, flex}}>
-      <Pressable onPress={_=>{navigation.navigate({key:'profile'})}}>
+      <Pressable onPress={_=>{navigation.navigate('profile')}}>
       <View style = {styles.profile}>
         <Text style={{fontSize:20}}>Pd</Text>
         </View>

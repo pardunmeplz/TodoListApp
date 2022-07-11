@@ -1,12 +1,12 @@
 import React from 'react'
-import {TouchableHighlight, StyleSheet, Text} from 'react-native'
+import {TouchableHighlight, StyleSheet, Text, GestureResponderEvent} from 'react-native'
 
 
 
 
-function FloatButton({onPress}:{onPress:Function})
+function FloatButton({onPress}:{onPress:(event: GestureResponderEvent) => void})
 {
-    return(<TouchableHighlight style={styles.button} onPress={onPress()}>
+    return(<TouchableHighlight style={styles.button} onPress={onPress}>
         <Text style={{fontSize:30}}>+</Text>
         </TouchableHighlight>)
 }

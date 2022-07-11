@@ -24,14 +24,13 @@ reducers:{
     },
     toggleTask: (state, action) =>{
         state[action.payload].status = !state[action.payload].status
-        state.sort((a,b)=>{return a.status && !b.status?1:0})
     },
     changeTask: (state, action)=>{
         state[action.payload.index]= action.payload.task
     },
     addTask: (state, action)=>{
-        state.sort((a,b)=>{return a.status && !b.status?1:0})
-        state.push({title:"New Task", description:"Description Here!", status:false})
+        
+        state.unshift({title:"New Task", description:"Description Here!", status:false})
         
     },
     clearTasks:(state, action)=>{

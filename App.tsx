@@ -17,9 +17,18 @@ import Register from './src/register/Screen';
 import { Provider } from 'react-redux';
 import store from './src/redux/Store';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParams = {
+  home:undefined;
+  register:undefined;
+  profile:undefined;
+  edit:undefined;
+}
 
-function App(){
+const Stack = createNativeStackNavigator<RootStackParams>();
+
+
+
+function App(): JSX.Element{
   StatusBar.setHidden(true, 'slide');
   return(
   <Provider store = {store}>
