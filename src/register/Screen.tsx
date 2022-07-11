@@ -13,10 +13,10 @@
    Text,
    View,
    Pressable,
-   ScrollView
-   
+   ScrollView,
  } from 'react-native'
-import { Formik} from 'formik'
+ import { RadioButton } from 'react-native-paper';
+import { Formik, yupToFormErrors} from 'formik'
 import * as yup from 'yup'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -47,7 +47,12 @@ const regValidation = yup.object().shape({
                     .matches(
                         /^.*((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
                         "upper & lowercase, digit and special char required"
-                      )
+                      ),
+    confirmPassword: yup.string()
+                        .required("Required field")
+                        .oneOf([yup.ref('password'), null], 'Passwords must match'),
+    gender: yup.string().required()
+
 })
 
  function Register(){
@@ -62,7 +67,9 @@ const regValidation = yup.object().shape({
                         lastName:'',
                         email: '',
                         password:'',
-                        age:0
+                        confirmPassword:'',
+                        age:'',
+                        gender:''
                     }}
      onSubmit={values => {
          console.log(values)
@@ -93,6 +100,29 @@ const regValidation = yup.object().shape({
                     onBlur={handleBlur('age')}
                     value={String(values.age)}
                     keyboardType={'numeric'}/>
+                
+                <RadioButton.Group
+                    onValueChange={handleChange('gender')}
+                    value={values.gender}>
+
+                        <View style={{flexDirection:'row'}}>
+                            
+                            <Text style={styles.textBlack}>Male</Text> 
+                            <RadioButton value={'M'}></RadioButton>
+                              
+                            <Text style={styles.textBlack}>Female</Text>
+                            <RadioButton value={'F'}></RadioButton>
+                            
+                            <Text style={styles.textBlack}>Other</Text>
+                            <RadioButton value={'O'}></RadioButton>
+                            
+                            
+                            
+                            
+                        </View>
+
+                </RadioButton.Group>
+                
                 <Text style={styles.textBlack}>Email <Text style={styles.textError}>{errors.email}</Text></Text>
                 <TextInput
                     style = {styles.input}
@@ -104,7 +134,13 @@ const regValidation = yup.object().shape({
                     style = {styles.input}
                     onChangeText={handleChange('password')}
                     value={values.password}
-                    secureTextEntry={true}/>                                                     
+                    secureTextEntry={true}/>     
+                <Text style={styles.textBlack}>Confirm Password <Text style={styles.textError}>{errors.confirmPassword}</Text></Text>
+                <TextInput
+                    style = {styles.input}
+                    onChangeText={handleChange('confirmPassword')}
+                    value={values.confirmPassword}
+                    secureTextEntry={true}/>                                                   
                 
                 <Pressable style={styles.button} onPress={handleSubmit}>
                     <Text style = {styles.textButton}>Submit</Text>
