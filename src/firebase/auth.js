@@ -38,3 +38,8 @@ export function loggedIn()
   return auth().currentUser != null
 }
 
+export function userMail()
+{
+  return auth().currentUser.email
+}
+

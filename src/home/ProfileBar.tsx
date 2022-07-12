@@ -14,14 +14,14 @@ import { RootState } from '../redux/Store';
 
 function ProfileBar({flex}:{flex:number}){
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
-    const name = useSelector((state:RootState)=>state.user.firstName)
+    const name = useSelector((state:RootState)=>{return {f:state.user.firstName, l:state.user.lastName}})
     return <View style = {{...styles.view, flex}}>
       <Pressable onPress={_=>{navigation.navigate('profile')}}>
       <View style = {styles.profile}>
-        <Text style={{fontSize:20}}>Pd</Text>
+        <Text style={{fontSize:20}}>{name.f![0]+name.l![0]}</Text>
         </View>
       </Pressable>
-      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.name}>{name.f}</Text>
       </View>
   }
 
