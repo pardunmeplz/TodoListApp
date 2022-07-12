@@ -15,7 +15,7 @@ auth()
 }
 
 export async function signIn(email, password){
-  auth()
+  await auth()
     .signInWithEmailAndPassword(email, password)
     .then(() => {
       Snackbar.show({text:'Signed in!', duration:Snackbar.LENGTH_LONG})
@@ -27,7 +27,7 @@ export async function signIn(email, password){
   
 
 export async function signOut(){
-auth()
+await auth()
   .signOut()
   .then(() => 
   Snackbar.show({text:'User logged out', duration:Snackbar.LENGTH_LONG}));

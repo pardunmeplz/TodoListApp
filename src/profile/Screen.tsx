@@ -32,8 +32,9 @@ import { logOut } from '../redux/Slices/UserSlice';
                   if(!auth.loggedIn())
                   {
                       dispatch(logOut({}))
-                  }
                       navigation.goBack()
+                  }
+                     
 
                     });
             }}>

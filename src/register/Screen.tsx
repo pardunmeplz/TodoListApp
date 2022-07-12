@@ -22,6 +22,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParams } from '../../App';
 import { newUser } from '../firebase/auth';
+import * as store from '../firebase/store'
 
 const regValidation = yup.object().shape({
     firstName: yup.string()
@@ -74,7 +75,14 @@ const regValidation = yup.object().shape({
                     }}
      onSubmit={values => {
          console.log(values)
-         newUser(values.email, values.password).then(()=>{navigation.goBack()})
+         newUser(values.email, values.password).then(()=>{
+            store.setUserData(values.email,
+                 {  firstName:values.firstName,
+                    lastName:values.lastName,
+                    age:values.age,
+                    gender:values.gender})    
+            navigation.goBack()
+        })
          }}>
      {
         ({ handleChange, handleBlur, handleSubmit, values, errors }) =>

@@ -20,9 +20,10 @@ import Snackbar from 'react-native-snackbar';
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { getName, logIn } from '../redux/Slices/UserSlice';
+import { getData, logIn } from '../redux/Slices/UserSlice';
 import { RootStackParams } from '../../App';
 import * as auth from '../firebase/auth'
+import * as store from '../firebase/store'
 
 
 const logValidation = yup.object().shape({
@@ -57,15 +58,22 @@ const logValidation = yup.object().shape({
          auth.signIn(values.email,values.password).then(
             ()=>{
                 
-                dispatch(getName('myname'))
-                if(auth.loggedIn())
-                {
-                    dispatch(logIn({}))
-                }
+                store.getUserData(values.email).then(
+                    (user)=>{
+                            if(user.exists)
+                            dispatch(getData({
+                                firstName:user.data()!.firstName,
+                                lastName:user.data()!.lastName,
+                                age:user.data()!.age,
+                                gender:user.data()!.gender
+                            }))
+                            if(auth.loggedIn())
+                            {
 
-            }
-         )
-         }}>
+                                dispatch(logIn({}))
+                            }
+
+            })})}}>
      {
         ({ handleChange, handleBlur, handleSubmit, values , errors}) =>
         (
