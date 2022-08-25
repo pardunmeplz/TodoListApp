@@ -17,13 +17,14 @@
 import { Formik} from 'formik';
 import * as yup from 'yup'
 import Snackbar from 'react-native-snackbar';
-import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NativeStackNavigationProp} from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { getData, logIn } from '../redux/Slices/UserSlice';
 import { RootStackParams } from '../../App';
 import * as auth from '../firebase/auth'
 import * as store from '../firebase/store'
+import { loadList } from '../redux/Slices/TodoSlice';
 
 
 const logValidation = yup.object().shape({
@@ -57,9 +58,16 @@ const logValidation = yup.object().shape({
          console.log(values)
          auth.signIn(values.email,values.password).then(
             ()=>{
-                
+                if(auth.loggedIn())
+                {
+                    navigation.reset({
+                        index:0,
+                        routes:[{name:"dashboard"}]
+                    })
+                }
                 store.getUserData(values.email).then(
-                    (user)=>{
+                    ({user, todo})=>{
+
                             if(user.exists)
                             dispatch(getData({
                                 firstName:user.data()!.firstName,
@@ -67,9 +75,15 @@ const logValidation = yup.object().shape({
                                 age:user.data()!.age,
                                 gender:user.data()!.gender
                             }))
+
+                            if(todo.exists)
+                            {
+                                dispatch(loadList(JSON.parse(todo.data()!.Todo)))
+                            }
+                            
+
                             if(auth.loggedIn())
                             {
-
                                 dispatch(logIn({}))
                             }
 
@@ -89,6 +103,7 @@ const logValidation = yup.object().shape({
                 <TextInput
                     style = {styles.input}
                     onChangeText={handleChange('password')}
+                    secureTextEntry={true}
                     value={values.password}/>                                                     
                 
                 <Pressable style={styles.button} onPress={

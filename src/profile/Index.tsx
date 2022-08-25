@@ -22,7 +22,6 @@ import { logOut } from '../redux/Slices/UserSlice';
 import { RootState } from '../redux/Store';
  
  function Profile(){
- const dispatch = useDispatch();
  const user = useSelector((state:RootState)=>state.user);
  const navigation = useNavigation();
  return <View style={{flex:1, backgroundColor:'black'}}>
@@ -40,13 +39,10 @@ import { RootState } from '../redux/Store';
           
           <Pressable style={styles.logOutBox} onPress={()=>{
             auth.signOut()
-                .then( ()=>{
-                  if(!auth.loggedIn())
-                  {
-                      dispatch(logOut({}))
-                      navigation.goBack()
-                  }
-                    });
+            navigation.reset({
+              index:0,
+              routes:[{name:'login'}]
+              }) 
             }}>
             <Text style={styles.logOut}>Log out</Text>
           </Pressable>

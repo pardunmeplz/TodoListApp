@@ -16,7 +16,7 @@
    ScrollView,
  } from 'react-native'
  import { RadioButton } from 'react-native-paper';
-import { Formik, yupToFormErrors} from 'formik'
+import { Formik} from 'formik'
 import * as yup from 'yup'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -53,7 +53,7 @@ const regValidation = yup.object().shape({
     confirmPassword: yup.string()
                         .required("Required field")
                         .oneOf([yup.ref('password'), null], 'Passwords must match'),
-    gender: yup.string().required()
+    gender: yup.string().required("Required field")
 
 })
 
@@ -89,28 +89,32 @@ const regValidation = yup.object().shape({
         (
             
             <View style = {styles.details}>
-                <Text style={styles.textBlack}>First Name <Text style={styles.textError}>{errors.firstName}</Text></Text>
+                <Text style={styles.textBlack}>First Name</Text>
                 <TextInput
                     style = {styles.input}
                     onChangeText={handleChange('firstName')}
                     onBlur={handleBlur('firstName')}
                     value={values.firstName}/>
+                    <Text style={styles.textError}>{errors.firstName}</Text>
                 
 
-                <Text style={styles.textBlack}>Last Name <Text style={styles.textError}>{errors.lastName}</Text></Text>
+                <Text style={styles.textBlack}>Last Name</Text>
                 <TextInput
                     style = {styles.input}
                     onChangeText={handleChange('lastName')}
                     onBlur={handleBlur('lastName')}
                     value={values.lastName}/>
-                <Text style={styles.textBlack}>Age <Text style={styles.textError}>{errors.age}</Text></Text>
+                <Text style={styles.textError}>{errors.lastName}</Text>
+
+                <Text style={styles.textBlack}>Age</Text>
                 <TextInput
                     style = {styles.input}
                     onChangeText={handleChange('age')}
                     onBlur={handleBlur('age')}
                     value={String(values.age)}
                     keyboardType={'numeric'}/>
-                
+                <Text style={styles.textError}>{errors.age}</Text>
+
                 <RadioButton.Group
                     onValueChange={handleChange('gender')}
                     value={values.gender}>
@@ -125,33 +129,35 @@ const regValidation = yup.object().shape({
                             
                             <Text style={styles.textBlack}>Other</Text>
                             <RadioButton value={'O'}></RadioButton>
-                            
-                            
-                            
-                            
                         </View>
 
                 </RadioButton.Group>
+                <Text style={styles.textError}>{errors.gender}</Text>
                 
-                <Text style={styles.textBlack}>Email <Text style={styles.textError}>{errors.email}</Text></Text>
+                <Text style={styles.textBlack}>Email</Text>
                 <TextInput
                     style = {styles.input}
                     onChangeText={handleChange('email')}
                     onBlur={handleBlur('email')}
                     value={values.email}/>
-                <Text style={styles.textBlack}>Password <Text style={styles.textError}>{errors.password}</Text></Text>
+                <Text style={styles.textError}>{errors.email}</Text>
+
+                <Text style={styles.textBlack}>Password</Text>
                 <TextInput
                     style = {styles.input}
                     onChangeText={handleChange('password')}
                     value={values.password}
                     secureTextEntry={true}/>     
-                <Text style={styles.textBlack}>Confirm Password <Text style={styles.textError}>{errors.confirmPassword}</Text></Text>
+                <Text style={styles.textError}>{errors.password}</Text>
+
+                <Text style={styles.textBlack}>Confirm Password</Text>
                 <TextInput
                     style = {styles.input}
                     onChangeText={handleChange('confirmPassword')}
                     value={values.confirmPassword}
                     secureTextEntry={true}/>                                                   
-                
+                <Text style={styles.textError}>{errors.confirmPassword}</Text>
+
                 <Pressable style={styles.button} onPress={handleSubmit}>
                     <Text style = {styles.textButton}>Submit</Text>
                 </Pressable>
@@ -185,7 +191,8 @@ const regValidation = yup.object().shape({
     textError:{
         fontSize:13,
         color:'red',
-        marginLeft:50
+        marginLeft:50,
+        marginBottom:10
     },
     textButton:{
         fontSize:20,
@@ -200,10 +207,10 @@ const regValidation = yup.object().shape({
         justifyContent:'center',
         paddingHorizontal:25,
         paddingVertical:10,
+        margin:30
     },
     input:{
         marginHorizontal:50,
-        marginBottom:30,
         color:'black',
         borderBottomWidth:3,
         fontSize:20

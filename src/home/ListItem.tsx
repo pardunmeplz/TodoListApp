@@ -4,22 +4,24 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { toggleTask } from "../redux/Slices/TodoSlice";
 import type { taskState } from "../redux/Slices/TodoSlice";
+import { selectTask } from "../redux/Slices/EditSlice";
 
-function Item({title, status, index}:{title:String,status:Boolean,index:Number})
+function Item({title, status, index, description}:taskState)
 {
     const dispatch = useDispatch();
     const nav = useNavigation();
     return (
-    
         <Pressable onPress={()=>dispatch(toggleTask(index))}
                     onLongPress={()=>{
-                        nav.navigate({key:'edit'})}}>
+                        dispatch(selectTask({title,status,index, description}));
+                        nav.navigate('edit');}}>
             <View style={styles.background}>
+        {
+        title==""?<Text style={styles.empty}>no title</Text>:
         <Text
-            style={status?styles.complete
-                         :styles.pending}>
-            
+            style={status?styles.complete:styles.pending}>
             {title}</Text>
+        }
         </View>
         </Pressable>
     
@@ -41,6 +43,12 @@ const styles = StyleSheet.create({
         textDecorationLine:'line-through'
     },
 
+    empty:{
+        color:'grey',
+        fontSize:20,
+        fontStyle:"italic"
+    },
+
     pending:{
         color:'white',
         fontSize:20,
@@ -50,7 +58,7 @@ const styles = StyleSheet.create({
 })
  function renderItem({item}:{item:taskState})
  {
-    return <Item title={item.title} status={item.status} index= {item.index!}/>
+    return <Item title={item.title} status={item.status} index= {item.index!} description={item.description}/>
  }
 
  export default renderItem;

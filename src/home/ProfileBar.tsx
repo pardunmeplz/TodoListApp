@@ -27,7 +27,7 @@ function ProfileBar({flex}:{flex:number}){
 
   const styles = StyleSheet.create({
     view:{
-      backgroundColor:"grey",
+      backgroundColor:"white",
       borderBottomLeftRadius: 70,
       borderBottomRightRadius: 70,
       padding: 10,

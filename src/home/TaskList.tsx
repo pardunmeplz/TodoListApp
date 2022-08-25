@@ -3,6 +3,7 @@ import {StyleSheet, FlatList, View} from "react-native"
 import { useSelector } from "react-redux";
 import renderItem from "./ListItem";
 import type { RootState } from "../redux/Store";
+import { Text } from "react-native-paper";
 
 
 function TodoView({children}:{children?: ReactNode}){
@@ -11,7 +12,10 @@ function TodoView({children}:{children?: ReactNode}){
 
     return(
     <View style ={ styles.background}>
+        
         {children}
+        {Data.length==0?<Text style={styles.hint}>Hint: press + to add new tasks</Text>:null}
+        
         <FlatList
         data={Data}
         renderItem={renderItem}
@@ -22,6 +26,12 @@ function TodoView({children}:{children?: ReactNode}){
 
 const styles = StyleSheet.create({
 
+    hint:{
+        color:'grey',
+        fontSize:20,
+        alignSelf:'center',
+        paddingTop:20
+    },
     background:{
         padding:0,
         paddingLeft:0,

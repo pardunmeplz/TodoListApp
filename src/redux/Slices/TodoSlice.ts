@@ -1,23 +1,20 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 export interface taskState {
-    title: String,
-    description:String,
+    title: string,
+    description:string,
     status:Boolean,
     index?:Number
 }
 
-const initialState: taskState[] = [
-    {title:"Task1", description:"This is an example task", status:false},
-    {title:"Task2", description:"You can describe the task here", status:true}
-]
+const initialState: taskState[] = []
 
 export const todoSlice = createSlice({
 name:'todo',
 initialState,
 reducers:{
     loadList: (state, action) =>{
-        state = action.payload.state
+        return action.payload
     },
     deleteTask: (state, action) =>{
         state.splice(action.payload, 1)
@@ -26,15 +23,15 @@ reducers:{
         state[action.payload].status = !state[action.payload].status
     },
     changeTask: (state, action)=>{
-        state[action.payload.index]= action.payload.task
+        state.splice(action.payload.index,1,action.payload);
     },
     addTask: (state, action)=>{
-        
-        state.unshift({title:"New Task", description:"Description Here!", status:false})
+        console.log(state)
+        return [{title:"a", description:"", status:false},...state]
         
     },
     clearTasks:(state, action)=>{
-        state.forEach((task, index)=>{if(task.status){state.splice(index, 1)}})
+        return state.filter((task)=>!task.status)
     }
 
 } })

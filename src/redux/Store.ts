@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
+import EditSlice from './Slices/EditSlice'
 import TodoSlice from './Slices/TodoSlice'
 import UserSlice from './Slices/UserSlice'
 const store = configureStore(
     {reducer:{
         todo: TodoSlice,
-        user: UserSlice
+        user: UserSlice,
+        edit: EditSlice
     }})
 
 export type RootState = ReturnType<typeof store.getState>
